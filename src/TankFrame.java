@@ -39,7 +39,7 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyReleased(KeyEvent keyEvent) {
-
+            System.out.println();
         }
     }
 }
