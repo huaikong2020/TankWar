@@ -7,14 +7,17 @@ import java.awt.event.KeyEvent;
  */
 public class Tank {
     private int x, y;
-    public static final int SPEED = 5;
+    private static final int SPEED = 5;
     private Dir dir;
     private boolean bL, bU, bR, bD;
+    private boolean moving;
+    private TankFrame tf;
 
-    public Tank(int x,int y,Dir dir){
+    public Tank(int x,int y,Dir dir,TankFrame tf){
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
@@ -23,38 +26,60 @@ public class Tank {
     }
 
     public void keyPressed(KeyEvent e) {
+        moving = true;
         int key = e.getKeyCode();
         switch (key){
             case KeyEvent.VK_LEFT:
                 dir = Dir.L;
+                bL = true;
                 break;
             case KeyEvent.VK_RIGHT :
                 dir = Dir.R;
+                bR = true;
                 break;
             case KeyEvent.VK_UP:
                 dir = Dir.U;
+                bU = true;
                 break;
             case KeyEvent.VK_DOWN:
                 dir = Dir.D;
+                bD = true;
+                break;
+            case KeyEvent.VK_SPACE:
+                fire();
                 break;
         }
 //        move();
     }
 
-    private void move() {
-        switch(dir){
-            case D:
-                y += SPEED;
+    public void keyReleased(KeyEvent e) {
+        moving = false;
+        int key = e.getKeyCode();
+        switch (key) {
+            case KeyEvent.VK_LEFT:
+                bL = false;
                 break;
-            case U:
-                y -= SPEED;
+            case KeyEvent.VK_RIGHT:
+                bR = false;
                 break;
-            case L:
-                x -= SPEED;
+            case KeyEvent.VK_UP:
+                bU = false;
                 break;
-            case R:
-                x += SPEED;
+            case KeyEvent.VK_DOWN:
+                bD = false;
                 break;
         }
+    }
+
+    private void move() {
+        if(bL) x -= SPEED;
+        if(bR) x += SPEED;
+        if(bU) y -= SPEED;
+        if(bD) y += SPEED;
+
+    }
+
+    public void fire(){
+        tf.bullets.add(new Bullet(this.x,this.y,this.dir,tf));
     }
 }
