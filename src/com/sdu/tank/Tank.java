@@ -1,3 +1,5 @@
+package com.sdu.tank;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -10,14 +12,16 @@ public class Tank {
     private static final int SPEED = 5;
     private Dir dir;
     private boolean bL, bU, bR, bD;
-    private boolean moving;
+    private Group group;
+
     private TankFrame tf;
 
-    public Tank(int x,int y,Dir dir,TankFrame tf){
+    public Tank(int x,int y,Dir dir,TankFrame tf,Group group){
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -26,7 +30,6 @@ public class Tank {
     }
 
     public void keyPressed(KeyEvent e) {
-        moving = true;
         int key = e.getKeyCode();
         switch (key){
             case KeyEvent.VK_LEFT:
@@ -49,11 +52,9 @@ public class Tank {
                 fire();
                 break;
         }
-//        move();
     }
 
     public void keyReleased(KeyEvent e) {
-        moving = false;
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_LEFT:

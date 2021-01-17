@@ -1,3 +1,5 @@
+package com.sdu.tank;
+
 import java.awt.*;
 
 /**
@@ -9,8 +11,10 @@ public class Bullet {
     private static final int WIDTH = 10,HEIGHT = 10;
     public int x,y;
     private Dir dir;
-    public boolean live = true;
+
     private TankFrame tf;
+
+    public boolean live = true;
 
     public Bullet(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
@@ -21,9 +25,10 @@ public class Bullet {
 
     public void paint(Graphics g){
         Color c = g.getColor();
-        g.setColor(Color.GREEN);
+        g.setColor(Color.red);
         g.fillOval(x,y,WIDTH,HEIGHT);
         g.setColor(c);
+
         move();
         if(!live) tf.bullets.remove(this);
     }
