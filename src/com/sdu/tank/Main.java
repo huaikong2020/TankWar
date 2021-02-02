@@ -7,8 +7,9 @@ package com.sdu.tank;
 public class Main {
     public static void main(String[] args) {
         TankFrame.INSTANCE.setVisible(true);
+        int count = Integer.parseInt((String)PropertyMgr.get("count"));
 
-        for(int i = 0;i < 5;i++){
+        for(int i = 0;i < count;i++){
             TankFrame.INSTANCE.enemy.add(new Tank(50 + i * 60,200,Dir.D,TankFrame.INSTANCE,Group.BAD));
         }
 
