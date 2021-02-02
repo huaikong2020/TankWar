@@ -7,7 +7,7 @@ import java.awt.*;
  * @create 2021-01-17 8:21
  */
 public class Bullet {
-    private static final int SPEED = 8;
+    private static final int SPEED = 50;
     private static final int WIDTH = 10,HEIGHT = 10;
     public int x,y;
     private Dir dir;

@@ -17,13 +17,15 @@ public class TankFrame extends Frame {
     private Tank myTank;
     private Tank enemy;
     private Bullet b;
+    private int GAME_WIDTH = 1000;
+    private int GAME_HEIGHT = 800;
 
     ArrayList<Bullet> bullets = new ArrayList<>();
 
     private TankFrame(){
         this.setTitle("tank war");
         this.setLocation(400,100);
-        this.setSize(800,600);
+        this.setSize(GAME_WIDTH,GAME_HEIGHT);
 
         myTank = new Tank(400,100, Dir.R,this,Group.GOOD);
 
@@ -35,6 +37,27 @@ public class TankFrame extends Frame {
             }
         });
     }
+
+
+    //双缓冲
+    Image offScreenImage = null;
+//双缓冲
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.WHITE);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
+
+
+
 
     @Override
     public void paint(Graphics g) {
