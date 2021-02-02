@@ -15,12 +15,14 @@ public class TankFrame extends Frame {
     public static final TankFrame INSTANCE = new TankFrame();
 
     private Tank myTank;
-    private Tank enemy;
+//    private Tank enemy;
     private Bullet b;
     private int GAME_WIDTH = 1000;
     private int GAME_HEIGHT = 800;
 
     ArrayList<Bullet> bullets = new ArrayList<>();
+    ArrayList<Tank> enemy = new ArrayList<>();
+    ArrayList<Explode> explodes = new ArrayList<>();
 
     private TankFrame(){
         this.setTitle("tank war");
@@ -64,6 +66,8 @@ public class TankFrame extends Frame {
         Color c = g.getColor();
         g.setColor(Color.BLUE);
         g.drawString("bullets:" + bullets.size(),10,50);
+        g.drawString("enemies:" + enemy.size(),10,80);
+        g.drawString("explodes:" + explodes.size(),10,100);
         g.setColor(c);
 
         myTank.paint(g);
@@ -71,6 +75,19 @@ public class TankFrame extends Frame {
         for(int i = 0;i < bullets.size();i++){
             bullets.get(i).paint(g);
         }
+        for(int i = 0;i < enemy.size();i++){
+            enemy.get(i).paint(g);
+        }
+        for(int i = 0;i < explodes.size();i++){
+            explodes.get(i).paint(g);
+        }
+
+        for(int i = 0;i < bullets.size();i++){
+            for(int j = 0;j < enemy.size();j++){
+                bullets.get(i).collideWith(enemy.get(j));
+            }
+        }
+
     }
 
 
